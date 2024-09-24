@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Input Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *:before,
+  *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .background .shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+  }
+  .shape:first-child {
+    background: linear-gradient(#ff9bb3, #cb798c);
+    left: -80px;
+    top: -80px;
+  }
+  .shape:last-child {
+    background: linear-gradient(to right, #ed88f8, #f304eb);
+    right: -30px;
+    bottom: -80px;
+  }
+  form, .thank-you {
+    width: 360px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 80px auto;
+    display: none; /* Initially hide all sections */
+  }
+  form * {
+    color: #333;
+  }
+  form h3, .thank-you h3 {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  input {
+    height: 40px;
+    width: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  button {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #d224cf;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .home-button {
+    display: block;
+    width: 100%;
+    background-color: #d224cf;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  .response-message {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<form id="page1">
+  <h3>Medical Input Report</h3>
+  <label for="radius_mean">radius_mean</label>
+  <input type="text" id="radius_mean" name="radius_mean" placeholder="radius_mean.."><br>
+  <br>
+  <label for="texture_mean">texture_mean</label>
+  <input type="text" id="texture_mean" name="texture_mean" placeholder="texture_mean.."><br>
+  <label for="perimeter_mean">perimeter_mean</label>
+  <input type="text" id="perimeter_mean" name="perimeter_mean" placeholder="perimeter_mean.."><br>
+  <label for="area_mean">area_mean</label>
+  <input type="text" id="area_mean" name="area_mean" placeholder="area_mean.."><br>
+  <label for="smoothness_mean">smoothness_mean</label>
+  <input type="text" id="smoothness_mean" name="smoothness_mean" placeholder="smoothness_mean.."><br>
+  <label for="compactness_mean">compactness_mean</label>
+  <input type="text" id="compactness_mean" name="compactness_mean" placeholder="compactness_mean.."><br>
+  <label for="concavity_mean">concavity_mean</label>
+  <input type="text" id="concavity_mean" name="concavity_mean" placeholder="concavity_mean"><br>
+  <label for="concave_points_mean">concave points_mean</label>
+  <input type="text" id="concave_points_mean" name="concave_points_mean" placeholder="concave_points_mean"><br>
+  <label for="symmetry_mean">symmetry_mean</label>
+  <input type="text" id="symmetry_mean" name="symmetry_mean" placeholder="symmetry_mean"><br>
+  <label for="fractal_dimension_mean">fractal_dimension_mean</label>
+  <input type="text" id="fractal_dimension_mean" name="fractal_dimension_mean" placeholder="fractal_dimension_mean"><br>
+  <button type="button" onclick="showPage(2)">Next</button>
+</form>
+
+<form id="page2">
+  <h3>Medical Input Report - Page 2</h3>
+  <label for="radius_se">radius_se</label>
+  <input type="text" id="radius_se" name="radius_se" placeholder="radius_se"><br>
+  <label for="texture_se">texture_se</label>
+  <input type="text" id="texture_se" name="texture_se" placeholder="texture_se"><br>
+  <label for="perimeter_se">perimeter_se</label>
+  <input type="text" id="perimeter_se" name="perimeter_se" placeholder="perimeter_se"><br>
+  <label for="area_se">area_se</label>
+  <input type="text" id="area_se" name="area_se" placeholder="area_se"><br>
+  <label for="smoothness_se">smoothness_se</label>
+  <input type="text" id="smoothness_se" name="smoothness_se" placeholder="smoothness_se"><br>
+  <label for="compactness_se">compactness_se</label>
+  <input type="text" id="compactness_se" name="compactness_se" placeholder="compactness_se"><br>
+  <label for="concavity_se">concavity_se</label>
+  <input type="text" id="concavity_se" name="concavity_se" placeholder="concavity_se"><br>
+  <label for="concave_points_se">concave points_se</label>
+  <input type="text" id="concave_points_se" name="concave_points_se" placeholder="concave_points_se"><br>
+  <label for="symmetry_se">symmetry_se</label>
+  <input type="text" id="symmetry_se" name="symmetry_se" placeholder="symmetry_se"><br>
+  <label for="fractal_dimension_se">fractal_dimension_se</label>
+  <input type="text" id="fractal_dimension_se" name="fractal_dimension_se" placeholder="fractal_dimension_se">
+  <button type="button" onclick="showPage(1)">Previous</button>
+  <button type="button" onclick="showPage(3)">Next</button>
+</form>
+
+<form id="page3">
+  <h3>Medical Input Report - Page 3</h3>
+  <label for="smoothness_mean">smoothness_mean</label>
+  <input type="text" id="smoothness_mean" name="smoothness_mean" placeholder="smoothness_mean.."><br>
+  <label for="radius_worst">radius_worst</label>
+  <input type="text" id="radius_worst" name="radius_worst" placeholder="radius_worst"><br>
+  <label for="texture_worst">texture_worst</label>
+  <input type="text" id="texture_worst" name="texture_worst" placeholder="texture_worst"><br>
+  <label for="perimeter_worst">perimeter_worst</label>
+  <input type="text" id="perimeter_worst" name="perimeter_worst" placeholder="perimeter_worst"><br>
+  <label for="area_worst">area_worst</label>
+  <input type="text" id="area_worst" name="area_worst" placeholder="area_worst"><br>
+  <label for="smoothness_worst">smoothness_worst</label>
+  <input type="text" id="smoothness_worst" name="smoothness_worst" placeholder="smoothness_worst"><br>
+  <label for="compactness_worst">compactness_worst</label>
+  <input type="text" id="compactness_worst" name="compactness_worst" placeholder="compactness_worst"><br>
+  <label for="concavity_worst">concavity_worst</label>
+  <input type="text" id="concavity_worst" name="concavity_worst" placeholder="concavity_worst"><br>
+  <label for="concave_points_worst">concave_points_worst</label>
+  <input type="text" id="concave_points_worst" name="concave_points_worst" placeholder="concave_points_worst"><br>
+  <label for="symmetry_worst">symmetry_worst</label>
+  <input type="text" id="symmetry_worst" name="symmetry_worst" placeholder="symmetry_worst"><br>
+  <label for="fractal_dimension_worst">fractal_dimension_worst</label>
+  <input type="text" id="fractal_dimension_worst" name="fractal_dimension_worst" placeholder="fractal_dimension_worst"><br>
+  
+  <button type="button" onclick="showPage(2)">Previous</button>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="thank-you" id="thankYou">
+  <h3>Your result</h3>
+  <div id="responseMessage" class="response-message"></div>
+  <a href="index.php" class="home-button" id="homeButton">Home</a>
+</div>
+
+<script>
+  function showPage(pageNumber) {
+    // Hide all pages
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page3").style.display = "none";
+    
+    // Show the specified page
+    document.getElementById("page" + pageNumber).style.display = "block";
+  }
+
+  // Function to handle form submission
+  function submitForm(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Gather data from all form pages
+    const formData = new FormData();
+    const inputs = document.querySelectorAll('input');
+
+    inputs.forEach(input => {
+      formData.append(input.name, input.value);
+    });
+
+    // Send the data to the Flask server
+    fetch('http://127.0.0.1:5000/extract_text', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Extract the "extracted_text" field from the JSON response
+      var extractedText = data.extracted_text;
+      document.getElementById("responseMessage").innerText = extractedText;
+
+      // Show the "Thank You" message and home button
+      document.getElementById("thankYou").style.display = "block";
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
+  document.getElementById("page1").style.display = "block"; // Show the first page initially
+
+  // Add event listener for form submission
+  document.getElementById("page3").addEventListener("submit", submitForm);
+
+  // Add functionality to the home button
+  document.getElementById("homeButton").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default action of the link, which is navigating to another page
+    // You can change the location to your actual homepage URL
+    window.location.href = "index.php";
+  });
+</script>
+</body>
+</html>

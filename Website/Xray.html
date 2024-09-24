@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Input Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *:before,
+  *:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body{
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .background .shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+  }
+  .shape:first-child {
+    background: linear-gradient(#ff9bb3, #cb798c);
+    left: -80px;
+    top: -80px;
+  }
+  .shape:last-child {
+    background: linear-gradient(to right, #ed88f8, #f304eb);
+    right: -30px;
+    bottom: -80px;
+  }
+  form {
+    max-width: 360px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 80px auto;
+  }
+  form * {
+    color: #333;
+  }
+  form h3 {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  input[type="file"] {
+    display: none;
+  }
+  .upload-button {
+    width: 100%;
+    background-color: #d224cf;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  input[type="file"] + label {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button[type="submit"] {
+    width: 100%;
+    background-color: #d224cf;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .thank-you {
+    display: none;
+    max-width: 360px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 80px auto;
+  }
+  .thank-you h3 {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .response-message {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+  }
+  .home-button {
+    display: block;
+    width: 100%;
+    background-color: #d224cf;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  .upload-message {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Responsive Styles */
+  @media only screen and (min-width: 768px) {
+    form {
+      max-width: 500px;
+    }
+    .thank-you {
+      max-width: 500px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+<form id="medicalForm" enctype="multipart/form-data">
+  <h3>Medical Input Report</h3>
+  <input type="file" id="xray" name="file" accept="image/*">
+  <label for="xray" class="upload-button">Upload Histopathology</label>
+  <div class="upload-message" id="uploadMessage"></div>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="thank-you" id="thankYou">
+  <h3>Thank You!</h3>
+  <div id="responseMessage" class="response-message"></div>
+  <a href="index.php" class="home-button" id="homeButton">Home</a>
+</div>
+
+<script>
+  document.getElementById("xray").addEventListener("change", function() {
+    // Get the file input
+    var fileInput = document.getElementById("xray");
+    // Get the selected file
+    var file = fileInput.files[0];
+    // Check if a file is selected
+    if (file) {
+      // Display a message with the file name
+      document.getElementById("uploadMessage").innerText = "File selected: " + file.name;
+    }
+  });
+
+  document.getElementById("medicalForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    var formData = new FormData();
+    formData.append('file', document.getElementById('xray').files[0]);
+
+    fetch('http://127.0.0.1:5000/extract_text', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Extract the "extracted_text" field from the JSON response
+      document.getElementById("medicalForm").style.display = "none";
+        document.getElementById("thankYou").style.display = "block";
+        document.getElementById("thankYou").insertAdjacentHTML('beforeend', '<p>Result: ' + data.extracted_text + '</p>');
+    })
+    .catch(error => console.error('Error:', error));
+  });
+
+  // Add functionality to the home button
+  document.getElementById("homeButton").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default action of the link, which is navigating to another page
+    // You can change the location to your actual homepage URL
+    window.location.href = "index.php";
+  });
+</script>
+</body>
+</html>
